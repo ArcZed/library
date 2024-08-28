@@ -99,7 +99,7 @@ dialog {
     width: 40vh;
     height: 50vh;
     background-color: aquamarine;
-    display: flex;
+    
 }
 
 form button{
@@ -107,7 +107,6 @@ form button{
 }
 
 #bnotes {
-    all: unset;
     justify-self: center;
     width: 100%;
     height: 20vh;

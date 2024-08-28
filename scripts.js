@@ -18,7 +18,8 @@ const bpages = document.querySelector('#bpages');
 const bnotes = document.querySelector('#bnotes');
 const bstatus = document.querySelector("#bstatus").value;
 const deleteBtn = document.querySelector(".deleteBtn");
-        
+
+let book;
 //show the dialog
 newBook.addEventListener('click', (e) => {
     dialog.style.display = "block";
@@ -33,7 +34,7 @@ document.addEventListener('keydown', (e)=> {
         break;
         case "Enter":
             e.preventDefault(); 
-            bookname = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value);
+            book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value);
             myLibrary.push();
             dialog.close(myLibrary);
         break;
@@ -60,7 +61,8 @@ dialog.addEventListener('close', (e) => {
     }
     else{
         //accept input and run the addBook function
-        myLibrary.push(new Book(btitle.value, bauthor.value, bpages.value, bnotes.value, myLibrary.length));
+        book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value, myLibrary.length)
+        myLibrary.push(book);
         addBookToLibrary();
         console.log('running');
     }
@@ -79,6 +81,8 @@ function Book(title, author, pages, notes, index){
 }
 
 function addBookToLibrary(){
+
+    let bookIndex;
 
     //check read status
 
@@ -105,14 +109,21 @@ function addBookToLibrary(){
     const deleteBtn = document.createElement("div");
     deleteBtn.className = "deleteBtn";
     card.appendChild(deleteBtn);
+    
+    deleteBtn.addEventListener("click", (e)=>{
+        content.removeChild(deleteBtn.parentElement);
+        console.log(myLibrary[bookIndex].index);
+        myLibrary.splice(myLibrary[bookIndex], 1)
+    })
 
-    myLibrary.forEach((book) => {
+    myLibrary.forEach((book ) => {
         title.textContent = book.title;
         author.textContent = `Author: ${book.author}`;
         pages.textContent = `Pages: ${book.pages}`;
         notes.textContent = `Notes: ${book.notes}`;
         changeStatusBtn.textContent = `Change status: Read`;
         deleteBtn.textContent = `Delete`;
+        bookIndex = book.index
         console.log(book);
     });
 }
@@ -125,10 +136,8 @@ function changeReadStatus(){
 
 }
 
+
 function deleteBookCard(){
-    console.log("click")
+    
 }
 
-deleteBtn.addEventListener("click", (e)=>{
-    deleteBookCard();
-})
