@@ -1,14 +1,11 @@
 const myLibrary = [];
 const body = document.querySelector('body');
 const content = document.querySelector('.content');
-// const card = document.querySelector('.card');
-// const button = document.querySelector('button');
-// const label = document.querySelector('.title')
-// const info = document.querySelector('.info');
 
 const newBook = document.querySelector('.newBook');
 
 const dialog = document.querySelector("dialog");
+const select = dialog.querySelector("select");
 const closeBtn = document.querySelector('#closeBtn');
 const submitBtn = document.querySelector('#submitBtn');
 
@@ -20,7 +17,6 @@ const bstatus = document.querySelector("#bstatus").value;
 const deleteBtn = document.querySelector(".deleteBtn");
 
 let book;
-let bookIndex;
 //show the dialog
 newBook.addEventListener('click', (e) => {
     dialog.style.display = "block";
@@ -35,9 +31,7 @@ document.addEventListener('keydown', (e)=> {
         break;
         case "Enter":
             e.preventDefault(); 
-            book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value);
-            myLibrary.push();
-            dialog.close(myLibrary);
+            dialog.close(select.value);
         break;
         default:
         break;
@@ -52,7 +46,7 @@ closeBtn.addEventListener('click', (e) => {
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault(); 
     //store the input into the library array and submit it
-    dialog.close(myLibrary);
+    dialog.close(select.value);
 });
 
 dialog.addEventListener('close', (e) => {
@@ -62,23 +56,25 @@ dialog.addEventListener('close', (e) => {
     }
     else{
         //accept input and run the addBook function
-        book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value)
+        let bookStatus = dialog.returnValue;
+        book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value, bookStatus)
         myLibrary.push(book);
-        
         addBookToLibrary();
+        console.log(myLibrary);
     }
     dialog.style.display = "none";
+    dialog.querySelector("input").value = "";
 });
 //change status listener
 
 //Book constructor
-function Book(title, author, pages, notes){
+function Book(title, author, pages, notes, status){
 
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.notes = notes;
-
+    status === "yes" ? this.status = true : this.status = false;
 }
 
 function addBookToLibrary(){
@@ -116,7 +112,12 @@ function addBookToLibrary(){
         author.textContent = `Author: ${book.author}`;
         pages.textContent = `Pages: ${book.pages}`;
         notes.textContent = `Notes: ${book.notes}`;
-        changeStatusBtn.textContent = `Change status: Read`;
+
+        if (book.status){
+            changeStatusBtn.textContent = `Change status: Read`;
+        }
+        else {changeStatusBtn.textContent = `Change status: Not Read`;}
+
         deleteBtn.textContent = `Delete`;
 
         book.index = myLibrary.indexOf(book);
@@ -124,20 +125,18 @@ function addBookToLibrary(){
 
         //add delete button
         deleteBtn.addEventListener("click", (e)=>{
-
             deleteBook(deleteBtn, card);
-        
-    })
+        })
+
+        //add change status button
+        changeStatusBtn.addEventListener("click", (e) =>{
+            book.status = !book.status;
+            console.log(myLibrary);
+            addBookToLibrary();
+        })
 });
 }
 
-function changeReadStatus(){
-
-    haveRead? changeStatusBtn.textContent = "Change status: Read" : 
-              changeStatusBtn.textContent = "Change status: Not read";
-    haveRead = !haveRead
-
-}
 
 function deleteBook (deleteBtn, card){
 
@@ -148,4 +147,5 @@ function deleteBook (deleteBtn, card){
         card.setAttribute("index", `${book.index}`);
     })
     addBookToLibrary();
+
 }
