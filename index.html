@@ -11,34 +11,27 @@
     <div class="header">My Library
         <button class="newBook">New Book</button>
     </div>
+    <dialog >
+        <form>
+            <label for="btitle">What is the title of the book?</label><br>
+            <input type="text" id="btitle" name="title"><br>
+            <label for="bauthor">Who is the author of the book?</label><br>
+            <input type="text" id="bauthor" name="author"><br>
+            <label for="bpages">How many pages are in the book?</label><br>
+            <input type="number" id="bpages" name="pages"><br>
+            <label for="bnotes">Review</label><br>
+            <textarea id="bnotes" maxlength="200"></textarea>
+            <label for="bstatus">Have you read the book</label>
+            <select name="bstatus" id="bstatus">
+                <option value="yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <button id="closeBtn" value="cancel" formmethod="dialog">Close</button>
+            <button id="submitBtn" value="default">Submit</button>
+        </form>
+    </dialog>
     <div class="content">
-        <!-- <div class="card">
-            <div class="title">Harry Potter and the Philosopher's Stone</div>
-            <div class="author">Author: J. K. Rowling</div>
-            <div class="pages">Pages: 224</div>
-            <div class="notes">Notes: J K Rowling's phenomenal imagination has created a stimulating fantasy world with the power to excite and involve readers of all ages - fantasy being an emotion in no way confined to children. </div>
-            <div class="changeStatus">Change status: Read</div> 
-            <div class="deleteBtn">Delete</div>
-        </div> -->
-        <dialog >
-            <form>
-                <label for="btitle">What is the title of the book?</label><br>
-                <input type="text" id="btitle" name="title"><br>
-                <label for="bauthor">Who is the author of the book?</label><br>
-                <input type="text" id="bauthor" name="author"><br>
-                <label for="bpages">How many pages are in the book?</label><br>
-                <input type="number" id="bpages" name="pages"><br>
-                <label for="bnotes">Review</label><br>
-                <textarea id="bnotes" maxlength="200"></textarea>
-                <label for="bstatus">Have you read the book</label>
-                <select name="bstatus" id="bstatus">
-                    <option value="yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-                <button id="closeBtn" value="cancel" formmethod="dialog">Close</button>
-                <button id="submitBtn" value="default">Submit</button>
-            </form>
-        </dialog>
+       
     </div>
 </body>
 </html>

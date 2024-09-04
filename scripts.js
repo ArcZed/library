@@ -20,6 +20,7 @@ const bstatus = document.querySelector("#bstatus").value;
 const deleteBtn = document.querySelector(".deleteBtn");
 
 let book;
+let bookIndex;
 //show the dialog
 newBook.addEventListener('click', (e) => {
     dialog.style.display = "block";
@@ -61,71 +62,73 @@ dialog.addEventListener('close', (e) => {
     }
     else{
         //accept input and run the addBook function
-        book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value, myLibrary.length)
+        book = new Book(btitle.value, bauthor.value, bpages.value, bnotes.value)
         myLibrary.push(book);
+        
         addBookToLibrary();
-        console.log('running');
     }
     dialog.style.display = "none";
 });
 //change status listener
 
 //Book constructor
-function Book(title, author, pages, notes, index){
+function Book(title, author, pages, notes){
 
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.notes = notes;
-    this.index = index;
+
 }
 
 function addBookToLibrary(){
 
-    let bookIndex;
+    content.innerHTML = "";
 
     //check read status
 
     //create a card for each book
-    const card = document.createElement("div");
-    card.className = "card";
-    content.appendChild(card);
+    myLibrary.forEach((book) => {
+        
+        const card = document.createElement("div");
+        card.className = "card";
+        content.appendChild(card);
+        const title = document.createElement("div");
+        title.className = "title";
+        card.appendChild(title);
+        const author = document.createElement("div");
+        author.className = "author";
+        card.appendChild(author);
+        const pages = document.createElement("div");
+        pages.className = "pages";
+        card.appendChild(pages);
+        const notes = document.createElement("div");
+        notes.className = "notes";
+        card.appendChild(notes);
+        const changeStatusBtn = document.createElement("div");
+        changeStatusBtn.className = "changeStatus";
+        card.appendChild(changeStatusBtn);
+        const deleteBtn = document.createElement("div");
+        deleteBtn.className = "deleteBtn";
+        card.appendChild(deleteBtn);
 
-    const title = document.createElement("div");
-    title.className = "title";
-    card.appendChild(title);
-    const author = document.createElement("div");
-    author.className = "author";
-    card.appendChild(author);
-    const pages = document.createElement("div");
-    pages.className = "pages";
-    card.appendChild(pages);
-    const notes = document.createElement("div");
-    notes.className = "notes";
-    card.appendChild(notes);
-    const changeStatusBtn = document.createElement("div");
-    changeStatusBtn.className = "changeStatus";
-    card.appendChild(changeStatusBtn);
-    const deleteBtn = document.createElement("div");
-    deleteBtn.className = "deleteBtn";
-    card.appendChild(deleteBtn);
-    
-    deleteBtn.addEventListener("click", (e)=>{
-        content.removeChild(deleteBtn.parentElement);
-        console.log(myLibrary[bookIndex].index);
-        myLibrary.splice(myLibrary[bookIndex], 1)
-    })
-
-    myLibrary.forEach((book ) => {
         title.textContent = book.title;
         author.textContent = `Author: ${book.author}`;
         pages.textContent = `Pages: ${book.pages}`;
         notes.textContent = `Notes: ${book.notes}`;
         changeStatusBtn.textContent = `Change status: Read`;
         deleteBtn.textContent = `Delete`;
-        bookIndex = book.index
-        console.log(book);
-    });
+
+        book.index = myLibrary.indexOf(book);
+        card.setAttribute("index", `${book.index}`);
+
+        //add delete button
+        deleteBtn.addEventListener("click", (e)=>{
+
+            deleteBook(deleteBtn, card);
+        
+    })
+});
 }
 
 function changeReadStatus(){
@@ -136,8 +139,13 @@ function changeReadStatus(){
 
 }
 
+function deleteBook (deleteBtn, card){
 
-function deleteBookCard(){
+    myLibrary.splice(deleteBtn.parentElement.getAttribute("index"), 1);
     
+    myLibrary.forEach((book) => {
+        book.index = myLibrary.indexOf(book);
+        card.setAttribute("index", `${book.index}`);
+    })
+    addBookToLibrary();
 }
-
