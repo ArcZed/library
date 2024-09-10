@@ -12,23 +12,27 @@
         <div>My Library</div>
         <button class="newBook">+</button>
     </div>
-    <dialog >
+    <dialog>
         <form>
-            <label for="btitle">What is the title of the book?</label><br>
-            <input type="text" id="btitle" name="title"><br>
-            <label for="bauthor">Who is the author of the book?</label><br>
-            <input type="text" id="bauthor" name="author"><br>
-            <label for="bpages">How many pages are in the book?</label><br>
-            <input type="number" id="bpages" name="pages"><br>
-            <label for="bnotes">Review</label><br>
-            <textarea id="bnotes" maxlength="200"></textarea>
-            <label for="bstatus">Have you read the book</label>
-            <select name="bstatus" id="bstatus">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            <button id="closeBtn" value="cancel" formmethod="dialog">Close</button>
-            <button id="submitBtn" value="default">Submit</button>
+            <div class="formContent">
+                <label for="btitle">What is the title of the book?</label><br>
+                <input type="text" id="btitle" name="title"><br>
+                <label for="bauthor">Who is the author of the book?</label><br>
+                <input type="text" id="bauthor" name="author"><br>
+                <label for="bpages">How many pages are in the book?</label><br>
+                <input type="number" id="bpages" name="pages"><br>
+                <label for="bnotes">Review</label><br>
+                <textarea id="bnotes" maxlength="200"></textarea><br>
+
+                <label class="checkStatus">
+                    <div>Have you read the book?</div>
+                    <input type="checkbox" id="bstatus" name="status">
+                </label>
+            </div>
+            <div class="btnContainer">
+                <button id="closeBtn" value="cancel" formmethod="dialog">Close</button>
+                <button id="submitBtn" value="default">Submit</button>
+            </div>    
         </form>
     </dialog>
     <div class="content">

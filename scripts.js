@@ -5,7 +5,6 @@ const content = document.querySelector('.content');
 const newBook = document.querySelector('.newBook');
 
 const dialog = document.querySelector("dialog");
-const select = dialog.querySelector("select");
 const closeBtn = document.querySelector('#closeBtn');
 const submitBtn = document.querySelector('#submitBtn');
 
@@ -13,8 +12,9 @@ const btitle = document.querySelector('#btitle');
 const bauthor = document.querySelector('#bauthor');
 const bpages = document.querySelector('#bpages');
 const bnotes = document.querySelector('#bnotes');
-const bstatus = document.querySelector("#bstatus").value;
+const bstatus = document.querySelector("#bstatus");
 const deleteBtn = document.querySelector(".deleteBtn");
+
 
 let book;
 //show the dialog
@@ -31,7 +31,7 @@ document.addEventListener('keydown', (e)=> {
         break;
         case "Enter":
             e.preventDefault(); 
-            dialog.close(select.value);
+            dialog.close(bstatus.checked);
         break;
         default:
         break;
@@ -45,8 +45,8 @@ closeBtn.addEventListener('click', (e) => {
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault(); 
-    //store the input into the library array and submit it
-    dialog.close(select.value);
+
+    dialog.close(bstatus.checked);
 });
 
 dialog.addEventListener('close', (e) => {
@@ -62,12 +62,15 @@ dialog.addEventListener('close', (e) => {
         addBookToLibrary();
         console.log(myLibrary);
     }
+
+    //reset dialog
     dialog.style.display = "none";
     let input = dialog.querySelectorAll("input");
     input.forEach((item) => {
         item.value = "";
     })
     dialog.querySelector("textarea").value = "";
+    bstatus.checked = false;
 });
 
 //Book constructor
@@ -77,7 +80,8 @@ function Book(title, author, pages, notes, status){
     this.author = author;
     this.pages = pages;
     this.notes = notes;
-    status === "yes" ? this.status = true : this.status = false;
+    status === "true" ? this.status = true : this.status = false;
+
 }
 
 function addBookToLibrary(){
@@ -114,10 +118,8 @@ function addBookToLibrary(){
         pages.textContent = `Pages: ${book.pages}`;
         notes.textContent = `Notes: ${book.notes}`;
 
-        if (book.status){
-            changeStatusBtn.textContent = `Change status: Read`;
-        }
-        else {changeStatusBtn.textContent = `Change status: Not Read`;}
+        if (book.status) {changeStatusBtn.textContent = `Change status: Read`;}
+        else             {changeStatusBtn.textContent = `Change status: Not Read`;}
 
         deleteBtn.textContent = `Delete`;
 
