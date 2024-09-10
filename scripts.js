@@ -63,9 +63,12 @@ dialog.addEventListener('close', (e) => {
         console.log(myLibrary);
     }
     dialog.style.display = "none";
-    dialog.querySelector("input").value = "";
+    let input = dialog.querySelectorAll("input");
+    input.forEach((item) => {
+        item.value = "";
+    })
+    dialog.querySelector("textarea").value = "";
 });
-//change status listener
 
 //Book constructor
 function Book(title, author, pages, notes, status){
@@ -80,8 +83,6 @@ function Book(title, author, pages, notes, status){
 function addBookToLibrary(){
 
     content.innerHTML = "";
-
-    //check read status
 
     //create a card for each book
     myLibrary.forEach((book) => {
