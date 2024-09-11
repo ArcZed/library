@@ -116,10 +116,10 @@ function addBookToLibrary(){
         title.textContent = book.title;
         author.textContent = `Author: ${book.author}`;
         pages.textContent = `Pages: ${book.pages}`;
-        notes.textContent = `Notes: ${book.notes}`;
+        notes.textContent = `Review: ${book.notes}`;
 
-        if (book.status) {changeStatusBtn.textContent = `Change status: Read`;}
-        else             {changeStatusBtn.textContent = `Change status: Not Read`;}
+        if (book.status) {changeStatusBtn.textContent = `Status: Read`;}
+        else             {changeStatusBtn.textContent = `Status: Not Read`;}
 
         deleteBtn.textContent = `Delete`;
 
@@ -129,14 +129,14 @@ function addBookToLibrary(){
         //add delete button
         deleteBtn.addEventListener("click", (e)=>{
             deleteBook(deleteBtn, card);
-        })
+        });
 
         //add change status button
         changeStatusBtn.addEventListener("click", (e) =>{
             book.status = !book.status;
             console.log(myLibrary);
             addBookToLibrary();
-        })
+        });
 });
 }
 
