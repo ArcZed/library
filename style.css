@@ -93,7 +93,6 @@ body {
     padding: 2vh;
     width: auto;
     height: 100%;
-    
 }
 
 .changeStatus{
@@ -178,10 +177,16 @@ dialog::backdrop{
 }
 
 #bnotes {
-    all: unset;
+    appearance: none;
     width: 100%;
     height: 18vh;
     background-color: #BBB1A4;
+    font-family: "GouldyBookletter", sans-serif;
+    font-size: 1.4rem;
+}
+
+textarea {
+    text-wrap: wrap;
 }
 
 .checkStatus {
