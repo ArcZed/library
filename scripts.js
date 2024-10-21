@@ -74,14 +74,16 @@ dialog.addEventListener('close', (e) => {
 });
 
 //Book constructor
-function Book(title, author, pages, notes, status){
+class Book {
+    constructor(title, author, pages, notes, status) {
 
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.notes = notes;
-    status === "true" ? this.status = true : this.status = false;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.notes = notes;
+        status === "true" ? this.status = true : this.status = false;
 
+    }
 }
 
 function addBookToLibrary(){

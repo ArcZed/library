@@ -185,9 +185,6 @@ dialog::backdrop{
     font-size: 1.4rem;
 }
 
-textarea {
-    text-wrap: wrap;
-}
 
 .checkStatus {
     display: flex;
